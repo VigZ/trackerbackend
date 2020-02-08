@@ -40,6 +40,10 @@ class User(TimeStampedModel, AbstractBaseUser):
         _('active'), default=True,
         help_text=_('Designates whether this user should be treated as '
                     'active. Unselect this instead of deleting accounts.'))
+    is_staff = models.BooleanField(
+        _('staff status'), default=False,
+        help_text=_('Designates whether the user can log into this admin '
+                    'site.'))
     display_name = models.CharField(_('display name'), max_length=30, blank=False)
     password = models.CharField(_('password'), max_length=100, blank=False)
     groups = models.ManyToManyField(Group)
