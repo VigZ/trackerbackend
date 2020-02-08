@@ -1,5 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import
+from django.contrib.auth.models import AbstractBaseUser
+from django.utils.translation import ugettext_lazy as _
 from model_utils.models import TimeStampedModel
 
 
@@ -15,3 +16,8 @@ class User(TimeStampedModel, AbstractBaseUser):
                     'active. Unselect this instead of deleting accounts.'))
     display_name = models.CharField(_('display name'), max_length=30, blank=False)
     password = models.CharField(_('password'), max_length=100, blank=False)
+    groups = models.ManyToManyField(Group)
+
+
+class Group(models.Model):
+    name = models.CharField(_('name'), max_length=30, blank=False)
