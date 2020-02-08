@@ -9,7 +9,7 @@ class Group(models.Model):
     name = models.CharField(_('name'), max_length=30, blank=False)
 
 
-class UserManager(DjangoUserManager):
+class CustomUserManager(DjangoUserManager):
 
     def _create_user(self, email, password, is_staff,
                  is_superuser, **extra_fields):
@@ -43,3 +43,7 @@ class User(TimeStampedModel, AbstractBaseUser):
     display_name = models.CharField(_('display name'), max_length=30, blank=False)
     password = models.CharField(_('password'), max_length=100, blank=False)
     groups = models.ManyToManyField(Group)
+
+    objects = CustomUserManager()
+
+    USERNAME_FIELD = 'email'
