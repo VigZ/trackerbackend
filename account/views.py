@@ -1,6 +1,6 @@
-from trackerbackend.account.models import User, Group
 from rest_framework import viewsets
-from trackerbackend.account.serializers import UserSerializer, GroupSerializer
+from .models import User, Group
+from .serializers import UserSerializer, GroupSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):

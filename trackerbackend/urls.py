@@ -1,6 +1,6 @@
 from django.urls import include, path
 from rest_framework import routers
-from trackerbackend.account import views
+from account import views
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
