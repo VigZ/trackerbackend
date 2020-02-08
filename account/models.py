@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
-from django.contrib.auth.models import UserManager as DjangoUserManager
+from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import ugettext_lazy as _
 from model_utils.models import TimeStampedModel
 
@@ -9,7 +9,7 @@ class Group(models.Model):
     name = models.CharField(_('name'), max_length=30, blank=False)
 
 
-class CustomUserManager(DjangoUserManager):
+class CustomUserManager(BaseUserManager):
 
     def _create_user(self, email, password, is_staff,
                  is_superuser, **extra_fields):
