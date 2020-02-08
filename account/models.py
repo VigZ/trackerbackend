@@ -44,6 +44,9 @@ class User(TimeStampedModel, AbstractBaseUser):
         _('staff status'), default=False,
         help_text=_('Designates whether the user can log into this admin '
                     'site.'))
+    is_superuser = models.BooleanField(
+        _('superuser status'), default=False,
+        help_text=_('Designates whether the user is a superuser.'))
     display_name = models.CharField(_('display name'), max_length=30, blank=False)
     password = models.CharField(_('password'), max_length=100, blank=False)
     groups = models.ManyToManyField(Group)
