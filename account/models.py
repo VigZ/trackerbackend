@@ -8,6 +8,9 @@ from model_utils.models import TimeStampedModel
 class Group(models.Model):
     name = models.CharField(_('name'), max_length=30, blank=False)
 
+    def __str__(self):
+        return self.name
+
 
 class CustomUserManager(BaseUserManager):
 
@@ -54,3 +57,7 @@ class User(TimeStampedModel, AbstractBaseUser):
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
+
+    def __str__(self):
+        name = self.display_name
+        return name if name else self.email
