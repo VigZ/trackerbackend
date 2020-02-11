@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import Project, Ticket, Tag
-from .serializers import ProjectSerializer, TagSerializer, TicketSerializer
+from .models import Project, Ticket, Tag, TicketGrouping, Comment
+from .serializers import ProjectSerializer, TagSerializer, TicketSerializer, TicketGroupingSerializer, CommentSerializer
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -17,6 +17,20 @@ class TicketViewSet(viewsets.ModelViewSet):
     """
     queryset = Ticket.objects.all()
     serializer_class = TicketSerializer
+
+class TicketGroupingViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = TicketGrouping.objects.all()
+    serializer_class = TicketGroupingSerializer
+
+class CommentViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows groups to be viewed or edited.
+    """
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
 
 class TagViewSet(viewsets.ModelViewSet):
     """

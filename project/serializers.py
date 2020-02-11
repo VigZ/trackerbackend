@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Project, Ticket, Tag
+from .models import Project, Ticket, Tag, TicketGrouping, Comment
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
@@ -13,7 +13,22 @@ class TagSerializer(serializers.HyperlinkedModelSerializer):
         model = Tag
         fields = ['url', 'name']
 
+
 class TicketSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Ticket
-        fields = ['url', 'name', 'poster', 'assigned_to', 'description', 'attachment', 'tags']
+        fields = ['url', 'name', 'poster', 'assigned_to', 'description',
+                 'attachment', 'tags', 'due_date', 'completed_date', 'severity',
+                 'priority', 'steps_to_reproduce', 'ticket_grouping']
+
+
+class TicketGroupingSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = TicketGrouping
+        fields = ['url', 'name', 'project', 'resolution_order',]
+
+
+class CommentSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ['url', 'poster', 'ticket', 'created_date', 'comment_text',]
