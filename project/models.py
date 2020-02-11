@@ -36,7 +36,7 @@ class TicketGrouping(models.Model):
 
 
 class Ticket(models.Model):
-    name = models.CharField(_('name'), max_length=30, blank=False)
+    name = models.CharField(_('name'), max_length=1000, blank=False)
     poster = models.ForeignKey(User, default=1, verbose_name="Poster", on_delete=models.SET_DEFAULT)
     assigned_to = models.ManyToManyField(User, related_name="assignees")
     description = models.CharField(_('description'), max_length=1000, blank=True)

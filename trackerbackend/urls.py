@@ -9,6 +9,8 @@ router.register(r'teams', account_views.TeamViewSet)
 router.register(r'tags', project_views.TagViewSet)
 router.register(r'tickets', project_views.TicketViewSet)
 router.register(r'projects', project_views.ProjectViewSet)
+router.register(r'ticketgroupings', project_views.TicketGroupingViewSet)
+router.register(r'comments', project_views.CommentViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
