@@ -24,6 +24,12 @@ class Project(models.Model):
         return self.project_name
 
 
+class TicketGrouping(models.Model):
+    name = models.CharField(_('name'), max_length=30, blank=False)
+    project = models.ForeignKey(Project, default=1, verbose_name="Project", on_delete=models.SET_DEFAULT)
+    resolution_order = models.CharField(_('resolution_order'), max_length=1000, blank=False)
+
+
 class Ticket(models.Model):
     name = models.CharField(_('name'), max_length=30, blank=False)
     poster = models.ForeignKey(User, default=1, verbose_name="Poster", on_delete=models.SET_DEFAULT)
@@ -36,6 +42,7 @@ class Ticket(models.Model):
     severity = models.CharField(_('severity'), choices=c.TICKET_SEVERITY_CHOICES, max_length=255, blank=False, default=c.TICKET_SEVERITY_CHOICES.normal)
     priority = models.CharField(_('priority'), choices=c.TICKET_PRIORITY_CHOICES, max_length=255, blank=False, default=c.TICKET_PRIORITY_CHOICES.mid)
     steps_to_reproduce = models.CharField(_('steps_to_reproduce'), max_length=1000, blank=True)
+    ticket_grouping = models.ForeignKey(TicketGrouping, default=1, verbose_name="Ticket Grouping", on_delete=models.SET_DEFAULT)
 
     def __str__(self):
         return self.name
