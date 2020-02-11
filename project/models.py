@@ -3,6 +3,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from account.models import User
 
+from . import constants as c
+
 
 class Tag(models.Model):
     name = models.CharField(_('name'), max_length=30, blank=False)
@@ -29,6 +31,10 @@ class Ticket(models.Model):
     description = models.CharField(_('description'), max_length=1000, blank=True)
     attachment = models.FileField()
     tags = models.ManyToManyField(Tag, related_name="ticket_tags")
+    due_date = models.DateTimeField(blank=True, help_text="The date before which the ticket is to be completed")
+    severity = models.CharField(_('severity'), choices=c.TICKET_SEVERITY_CHOICES, max_length=255, blank=False, default=c.TICKET_SEVERITY_CHOICES.normal)
+    priority = models.CharField(_('priority'), choices=c.TICKET_PRIORITY_CHOICES, max_length=255, blank=False, default=c.TICKET_PRIORITY_CHOICES.mid)
+    steps_to_reproduce = models.CharField(_('description'), max_length=1000, blank=True)
 
     def __str__(self):
         return self.name
