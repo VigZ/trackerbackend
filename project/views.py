@@ -1,4 +1,6 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
+from rest_framework.response import Response
+
 from .models import Project, Ticket, Tag, TicketGrouping, Comment
 from .serializers import ProjectSerializer, TagSerializer, TicketSerializer, TicketGroupingSerializer, CommentSerializer
 
@@ -9,6 +11,17 @@ class ProjectViewSet(viewsets.ModelViewSet):
     """
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+
+    def create(self, request):
+        name = request.POST.get('name')
+        project_creator = request.user
+        new_project = Project.objects.create(project_name=name, owner=project_creator)
+        new_project.admins.add(project_creator)
+        new_project.members.add(project_creator)
+        new_project.save()
+
+        return Response(status=status.HTTP_201_CREATED)
+
 
 
 class TicketViewSet(viewsets.ModelViewSet):
