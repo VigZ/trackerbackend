@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from model_utils.models import TimeStampedModel
 
 
-class Group(models.Model):
+class Team(models.Model):
     name = models.CharField(_('name'), max_length=30, blank=False)
 
     def __str__(self):
@@ -52,7 +52,7 @@ class User(TimeStampedModel, AbstractBaseUser):
         help_text=_('Designates whether the user is a superuser.'))
     display_name = models.CharField(_('display name'), max_length=30, blank=False)
     password = models.CharField(_('password'), max_length=100, blank=False)
-    groups = models.ManyToManyField(Group)
+    teams = models.ManyToManyField(Team)
 
     objects = CustomUserManager()
 

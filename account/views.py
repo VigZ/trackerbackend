@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .models import User, Group
-from .serializers import UserSerializer, GroupSerializer
+from .models import User, Team
+from .serializers import UserSerializer, TeamSerializer
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -11,9 +11,9 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
 
 
-class GroupViewSet(viewsets.ModelViewSet):
+class TeamViewSet(viewsets.ModelViewSet):
     """
-    API endpoint that allows groups to be viewed or edited.
+    API endpoint that allows teams to be viewed or edited.
     """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+    queryset = Team.objects.all()
+    serializer_class = TeamSerializer

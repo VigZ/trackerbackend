@@ -5,7 +5,7 @@ from project import views as project_views
 
 router = routers.DefaultRouter()
 router.register(r'users', account_views.UserViewSet)
-router.register(r'groups', account_views.GroupViewSet)
+router.register(r'teams', account_views.TeamViewSet)
 router.register(r'tags', project_views.TagViewSet)
 router.register(r'tickets', project_views.TicketViewSet)
 router.register(r'projects', project_views.ProjectViewSet)
