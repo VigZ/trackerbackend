@@ -32,9 +32,10 @@ class Ticket(models.Model):
     attachment = models.FileField()
     tags = models.ManyToManyField(Tag, related_name="ticket_tags")
     due_date = models.DateTimeField(blank=True, help_text="The date before which the ticket is to be completed")
+    completed_date = models.DateTimeField(blank=True, help_text="The date the ticket was completed")
     severity = models.CharField(_('severity'), choices=c.TICKET_SEVERITY_CHOICES, max_length=255, blank=False, default=c.TICKET_SEVERITY_CHOICES.normal)
     priority = models.CharField(_('priority'), choices=c.TICKET_PRIORITY_CHOICES, max_length=255, blank=False, default=c.TICKET_PRIORITY_CHOICES.mid)
-    steps_to_reproduce = models.CharField(_('description'), max_length=1000, blank=True)
+    steps_to_reproduce = models.CharField(_('steps_to_reproduce'), max_length=1000, blank=True)
 
     def __str__(self):
         return self.name
