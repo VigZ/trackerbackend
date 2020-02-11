@@ -59,3 +59,6 @@ class Comment(models.Model):
     ticket = models.ForeignKey(Ticket, default=1, verbose_name="Ticket", on_delete=models.SET_DEFAULT)
     created_date = models.DateTimeField(default=datetime.datetime.now)
     comment_text = models.CharField(_('comment_text'), max_length=1000, blank=False)
+
+    def __str__(self):
+        return "Comment posted by " + self.poster.name
