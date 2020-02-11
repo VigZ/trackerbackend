@@ -40,6 +40,7 @@ class Ticket(models.Model):
     poster = models.ForeignKey(User, default=1, verbose_name="Poster", on_delete=models.SET_DEFAULT)
     assigned_to = models.ManyToManyField(User, related_name="assignees")
     description = models.CharField(_('description'), max_length=1000, blank=True)
+    environment = models.CharField(_('environment'), max_length=30, blank=True)
     attachment = models.FileField()
     tags = models.ManyToManyField(Tag, related_name="ticket_tags")
     due_date = models.DateTimeField(blank=True, null=True, help_text="The date before which the ticket is to be completed")
