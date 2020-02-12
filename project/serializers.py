@@ -3,6 +3,15 @@ from .models import Project, Ticket, Tag, TicketGrouping, Comment
 
 
 class ProjectSerializer(serializers.HyperlinkedModelSerializer):
+
+    def create(self, validated_data):
+        name = validated_data.get('name')
+        project_creator = validated_data.user
+        new_project = Project.objects.create(project_name=name, owner=project_creator)
+        new_project.admins.add(project_creator)
+        new_project.members.add(project_creator)
+        return new_project
+        
     class Meta:
         model = Project
         fields = ['url', 'project_name', 'owner', 'admins', 'members']
