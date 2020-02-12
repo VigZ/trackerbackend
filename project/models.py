@@ -1,4 +1,4 @@
-from django.db import models
+from django.db import models, IntegrityError
 from django.utils.translation import ugettext_lazy as _
 
 import datetime
@@ -24,6 +24,16 @@ class Project(models.Model):
 
     def __str__(self):
         return self.project_name
+
+    def save(self, *args, **kwargs):
+        if self._owner_is_included():
+            super(Project, self).save(*args, **kwargs)
+        else:
+            raise IntegrityError("Project owner must exist as an admin and member of the project.")
+
+
+    def _owner_is_included(self):
+        return self.admins.filter(id=self.owner.id).exists() and self.members.filter(id=self.owner.id).exists()
 
 
 class TicketGrouping(models.Model):
