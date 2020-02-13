@@ -1,6 +1,9 @@
+from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.base_user import BaseUserManager
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.translation import ugettext_lazy as _
 from model_utils.models import TimeStampedModel
 from rest_framework.authtoken.models import Token
@@ -59,7 +62,22 @@ class User(TimeStampedModel, AbstractBaseUser):
 
     USERNAME_FIELD = 'email'
 
-    def create_token(self):
+    @property
+    def token(self):
+        token = Token.objects.filter(user=self).first()
+        return token
+
+
+    @receiver(post_save, sender=settings.AUTH_USER_MODEL)
+    def create_auth_token(sender, instance=None, created=False, **kwargs):
+        if created:
+            Token.objects.create(user=instance)
+
+    def create_or_reset_token(self):
+        token = Token.objects.filter(user=self)
+        if token:
+            return token
+        Token.objects.delete(user=self)
         token = Token.objects.create(user=self)
         return token
 
