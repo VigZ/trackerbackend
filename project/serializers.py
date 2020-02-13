@@ -10,7 +10,6 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     members = UserSerializer(many=True, required=False)
 
     def create(self, validated_data):
-        import ipdb; ipdb.set_trace()
         name = validated_data.get('name')
         project_creator = get_object_or_404(User, validated_data.owner)
         new_project = Project.objects.create(project_name=name, owner=project_creator)

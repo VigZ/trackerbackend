@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser
 from django.contrib.auth.base_user import BaseUserManager
 from django.utils.translation import ugettext_lazy as _
 from model_utils.models import TimeStampedModel
+from rest_framework.authtoken.models import Token
 
 
 class Team(models.Model):
@@ -57,6 +58,10 @@ class User(TimeStampedModel, AbstractBaseUser):
     objects = CustomUserManager()
 
     USERNAME_FIELD = 'email'
+
+    def create_token(self):
+        token = Token.objects.create(user=self)
+        return token
 
     def __str__(self):
         name = self.display_name
