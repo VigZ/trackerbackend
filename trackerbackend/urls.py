@@ -2,6 +2,7 @@ from django.urls import include, path
 from rest_framework import routers
 from account import views as account_views
 from project import views as project_views
+from rest_framework.authtoken import views
 
 router = routers.DefaultRouter()
 router.register(r'users', account_views.UserViewSet)
