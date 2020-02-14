@@ -2,6 +2,7 @@ from rest_framework import permissions, viewsets, status
 from rest_framework.response import Response
 from .models import User, Team
 from .serializers import UserSerializer, TeamSerializer
+from .permissions import AnonCreateOnly, UpdateOwnerOnly, ListAdminOnly
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -10,8 +11,7 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    authentication_classes = []
-    permission_classes = [AnonCreateAndUpdateOwnerOnly, ListAdminOnly]
+    permission_classes = [AnonCreateOnly, UpdateOwnerOnly, ListAdminOnly]
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)

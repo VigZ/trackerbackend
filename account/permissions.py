@@ -13,7 +13,7 @@ class IsCreationOrIsAuthenticated(permissions.BasePermission):
             return True
 
 
-class AnonCreateAndUpdateOwnerOnly(permissions.BasePermission):
+class AnonCreateOnly(permissions.BasePermission):
     """
     Custom permission:
         - allow anonymous POST
@@ -23,6 +23,9 @@ class AnonCreateAndUpdateOwnerOnly(permissions.BasePermission):
 
     def has_permission(self, request, view):
         return view.action == 'create' or request.user and request.user.is_authenticated
+
+
+class UpdateOwnerOnly(permissions.BasePermission):
 
     def has_object_permission(self, request, view, obj):
         return view.action in ['retrieve', 'update', 'partial_update'] and obj.id == request.user.id or request.user.is_staff
