@@ -10,8 +10,8 @@ class ProjectSerializer(serializers.HyperlinkedModelSerializer):
     members = UserSerializer(many=True, required=False)
 
     def create(self, validated_data):
-        name = validated_data.get('name')
-        project_creator = get_object_or_404(User, validated_data.owner)
+        name = validated_data.get('project_name')
+        project_creator = validated_data.get('owner')
         new_project = Project.objects.create(project_name=name, owner=project_creator)
         new_project.admins.add(project_creator)
         new_project.members.add(project_creator)

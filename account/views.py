@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import permissions, viewsets
 from .models import User, Team
 from .serializers import UserSerializer, TeamSerializer
 
@@ -9,6 +9,8 @@ class UserViewSet(viewsets.ModelViewSet):
     """
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    authentication_classes = []
+    permission_classes = []
 
 
 class TeamViewSet(viewsets.ModelViewSet):

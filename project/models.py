@@ -25,11 +25,11 @@ class Project(models.Model):
     def __str__(self):
         return self.project_name
 
-    def save(self, *args, **kwargs):
-        if self._owner_is_included():
-            super(Project, self).save(*args, **kwargs)
-        else:
-            raise IntegrityError("Project owner must exist as an admin and member of the project.")
+    # def save(self, *args, **kwargs):
+    #     if self._owner_is_included():
+    #         super(Project, self).save(*args, **kwargs)
+    #     else:
+    #         raise IntegrityError("Project owner must exist as an admin and member of the project.")
 
 
     def _owner_is_included(self):
