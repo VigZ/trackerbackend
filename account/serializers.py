@@ -11,6 +11,7 @@ class TeamSerializer(serializers.HyperlinkedModelSerializer):
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     teams = TeamSerializer(many=True, required=False)
     display_name = serializers.CharField(required=False)
+    
     class Meta:
         model = User
         fields = ['url', 'display_name', 'email', 'teams']
