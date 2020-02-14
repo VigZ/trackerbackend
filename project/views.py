@@ -5,6 +5,7 @@ from .models import Project, Ticket, Tag, TicketGrouping, Comment
 from .serializers import ProjectSerializer, TagSerializer, TicketSerializer, TicketGroupingSerializer, CommentSerializer
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from .permissions import IsAdminOrOwnerOrReadOnly
 
 
 class ProjectViewSet(viewsets.ModelViewSet):
@@ -13,6 +14,7 @@ class ProjectViewSet(viewsets.ModelViewSet):
     """
     queryset = Project.objects.all()
     serializer_class = ProjectSerializer
+    permission_classes = [IsAdminOrOwnerOrReadOnly]
 
 
     def perform_create(self, serializer):

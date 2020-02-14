@@ -1,6 +1,6 @@
 from rest_framework import permissions
 
-class IsAdminOrReadOnly(permissions.BasePermission):
+class IsAdminOrOwnerOrReadOnly(permissions.BasePermission):
     """
     Custom permission to only allow owners or admins of an object to edit it.
     """
@@ -10,5 +10,4 @@ class IsAdminOrReadOnly(permissions.BasePermission):
         # so we'll always allow GET, HEAD or OPTIONS requests.
         if request.method in permissions.SAFE_METHODS:
             return True
-
-        return obj.owner == request.user or obj.admins.filter(request.user).exists()
+        return obj.owner == request.user or obj.admins.filter(id=request.user.id).exists()
