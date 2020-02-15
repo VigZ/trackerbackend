@@ -66,6 +66,16 @@ class Ticket(models.Model):
     def __str__(self):
         return self.name
 
+    def time_until_due_date(self):
+            if self.due_date:
+                return max(self.due_date - datetime.datetime.now, 0)
+            return None
+
+    def total_completion_time(self):
+        if self.completed_date:
+            return (self.completed_date - self.created_at)
+        return "This ticket has not been completed yet."
+
 
 class Comment(models.Model):
     poster = models.ForeignKey(User, default=1, verbose_name="Poster", on_delete=models.SET_DEFAULT)
