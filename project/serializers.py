@@ -47,4 +47,11 @@ class TagSerializer(serializers.HyperlinkedModelSerializer):
 class CommentSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Comment
-        fields = ['url', 'poster', 'ticket', 'created_date', 'comment_text',]
+        fields = ['url', 'poster', 'ticket', 'created_at', 'comment_text',]
+
+    def create(self, validated_data):
+        ticket = validated_data.get('ticket')
+        poster = validated_data.get('poster')
+        comment_text = validated_data.get('comment_text')
+        new_comment = Comment.objects.create(ticket=ticket, poster=poster, comment_text=comment_text)
+        return new_comment

@@ -44,6 +44,9 @@ class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
+    def perform_create(self, serializer):
+        serializer.save(poster=self.request.user)
+
 
 class TagViewSet(viewsets.ModelViewSet):
     """
