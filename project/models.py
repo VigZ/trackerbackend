@@ -39,7 +39,7 @@ class Project(models.Model):
 class TicketGrouping(models.Model):
     name = models.CharField(_('name'), max_length=30, blank=False)
     project = models.ForeignKey(Project, default=1, verbose_name="Project", on_delete=models.SET_DEFAULT)
-    resolution_order = models.CharField(_('resolution_order'), max_length=1000, blank=False)
+    resolution_order = models.CharField(_('resolution_order'), max_length=1000, blank=True)
 
     def __str__(self):
         return self.name
