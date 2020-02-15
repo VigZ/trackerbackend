@@ -61,6 +61,7 @@ class Ticket(models.Model):
     steps_to_reproduce = models.CharField(_('steps_to_reproduce'), max_length=1000, blank=True)
     ticket_grouping = models.ForeignKey(TicketGrouping, default=1, verbose_name="Ticket Grouping", on_delete=models.SET_DEFAULT)
     status = models.CharField(_('status'), choices=c.STATUS_CHOICES, max_length=255, blank=False, default=c.STATUS_CHOICES.pending)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name
@@ -69,7 +70,8 @@ class Ticket(models.Model):
 class Comment(models.Model):
     poster = models.ForeignKey(User, default=1, verbose_name="Poster", on_delete=models.SET_DEFAULT)
     ticket = models.ForeignKey(Ticket, default=1, verbose_name="Ticket", on_delete=models.SET_DEFAULT)
-    created_date = models.DateTimeField(default=datetime.datetime.now)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     comment_text = models.CharField(_('comment_text'), max_length=1000, blank=False)
 
     def __str__(self):
