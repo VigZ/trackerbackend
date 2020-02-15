@@ -14,3 +14,20 @@ TICKET_PRIORITY_CHOICES = Choices(
     (3,"mid", _('Ticket should be completed after higher priority tickets.')),
     (4,"low", _('Ticket should be completed in spare time.')),
 )
+
+REPORT_TYPE_CHOICES = Choices(
+    (1,"coding_error", _('Coding Error')),
+    (2,"design_error", _('Design Error')),
+    (3,"new_suggestion", _('New Suggestion')),
+    (4,"documentation_issue", _('Documentation Issue')),
+    (5,"hardware_problem", _('Hardware Problem')),
+    (6,"other", _('Other')),
+)
+
+STATUS_CHOICES = Choices(
+    (1,"pending", _('Ticket Pending')),
+    (2,"in_progress", _('Ticket in Progess')),
+    (3,"testing", _('Ticket in Testing')),
+    (4,"blocked", _('Ticket is Blocked.')),
+    (5,"completed", _('Ticket is Completed')),
+)
